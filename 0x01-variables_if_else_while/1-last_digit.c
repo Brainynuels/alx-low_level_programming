@@ -9,7 +9,7 @@ int main(void)
   srand(time(0));
   n = rand();
 
-  printf("The string Last digit of %d is ", n);
+  printf("The Last digit of %d is 8 ", n);
 
   if (n % 10 > 5)
     printf("and is greater than 5\n");
@@ -20,4 +20,3 @@ int main(void)
 
   return 0;
 }
-
