@@ -21,6 +21,8 @@ int main(void)
 		printf("0; and is 0\n");
 	else
 		printf("-8; and is less than 6 and not 0\n");
+	else
 		printf("Last digit of %d is -8 and is less than 6 and not 0\n");
+
 	return (0);
 }
