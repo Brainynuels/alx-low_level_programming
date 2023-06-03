@@ -1,20 +1,20 @@
-i
+#include "main.h"
 /**
-*File:main.h
-*Author:Pericles Adjovi
-*Desc:header file containing functions declaration
-*/
+ *main - Entry point
+ *
+ *Return: nothing, return void
+ */
+int main(void)
+{
+	_putchar('_');
+	_putchar('p');
+	_putchar('u');
+	_putchar('t');
+	_putchar('c');
+	_putchar('h');
+	_putchar('a');
+	_putchar('r');
+	_putchar('\n');
 
-void print_alphabet(void);
-void jack_bauer(void);
-void print_alphabet_x10(void);
-void times_table();
-void print_to_98(int);
-void print_times_table(int);
-int _putchar(char);
-int _islower(int c);
-int _isalpha(int c);
-int print_sign(int n);
-int _abs(int);
-int add(int n, int m);
-int print_last_digit(int n);
+	return (0);
+}
