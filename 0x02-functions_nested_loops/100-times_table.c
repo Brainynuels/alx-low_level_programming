@@ -1,48 +1,37 @@
-#include "holberton.h"
+#include "main.h"
+
 /**
- * print_times_table - print the time tables
- *@n: the tested number
- *
- * Return: the time tables from 0 to n
+ * print_times_table - Prints the times table of the input,
+ * starting with 0
+ * @n: The value of the times table to be printed.
  */
 void print_times_table(int n)
 {
-	int multi, row, col, cents, tens, units;
+	int num, mult, prod;
 
-	for (row = 0; row <= n; row++)
+	if (n >= 0 && n <= 15)
 	{
-		for (col = 0; col <= n; col++)
+		for (num = 0; num <= n; num++)
 		{
-			if (n <= 15 && n >= 0)
-			{
-				multi = row * col;
-				cents = multi / 100;
-				tens = (multi / 10) % 10;
-				units = multi % 10;
-				if (col == 0)
-				{
-					_putchar('0'); }
-				else
-				{
-					if (multi > 99)
-						_putchar(cents + '0');
-					else
-						_putchar(' ');
-					if (multi > 9)
-						_putchar(tens + '0');
-					else
-						_putchar(' ');
-
-					_putchar(units + '0');
-				}
-				if (col < n)
-				{
-					_putchar(',');
-					_putchar(' '); }
-				else
-				{
-					_putchar('\n'); }
+			_putchar('0');
+													     for (mult = 1; mult <= n; mult++)								{
+														     _putchar(',');
+														     _putchar(' ');
+														     prod = num * mult;
+		      if (prod <= 99)										_putchar(' ');
+		      if (prod <= 9)										_putchar(' ');
+		      if (prod >= 100)
+		      	 {
+				_putchar((prod / 100) + '0');
+				_putchar(((prod / 10)) % 10 + '0');
+			 }
+													     else if (prod <= 99 && prod >= 10)
+													    	 {
+				_putchar((prod / 10) + '0');
+			  }
+													     _putchar((prod % 10) + '0');
 			}
+		_putchar('\n');
 		}
 	}
 }
