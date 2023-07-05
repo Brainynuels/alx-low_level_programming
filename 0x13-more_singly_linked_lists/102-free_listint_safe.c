@@ -1,101 +1,52 @@
-/*
- * File: 102-free_listint_safe.c
- * Auth: Brennan D Baraban
- */
-
 #include "lists.h"
-
-size_t looped_listint_count(listint_t *head);
-size_t free_listint_safe(listint_t **h);
-
-/**
- * looped_listint_count - Counts the number of unique nodes
- *                      in a looped listint_t linked list.
- * @head: A pointer to the head of the listint_t to check.
- *
- * Return: If the list is not looped - 0.
- *         Otherwise - the number of unique nodes in the list.
- */
-size_t looped_listint_count(listint_t *head)
-{
-	listint_t *tortoise, *hare;
-	size_t nodes = 1;
-
-	if (head == NULL || head->next == NULL)
-		return (0);
-
-	tortoise = head->next;
-	hare = (head->next)->next;
-
-	while (hare)
-	{
-		if (tortoise == hare)
-		{
-			tortoise = head;
-			while (tortoise != hare)
-			{
-				nodes++;
-				tortoise = tortoise->next;
-				hare = hare->next;
-			}
-
-			tortoise = tortoise->next;
-			while (tortoise != hare)
-			{
-				nodes++;
-				tortoise = tortoise->next;
-			}
-
-			return (nodes);
-		}
-
-		tortoise = tortoise->next;
-		hare = (hare->next)->next;
-	}
-
-	return (0);
-}
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
- * free_listint_safe - Frees a listint_t list safely (ie.
- *                     can free lists containing loops)
- * @h: A pointer to the address of
- *     the head of the listint_t list.
+ * free_listint_safe - function that frees a listint_t list.
+ * @h: pointer to pointer to the head of linked list.
  *
- * Return: The size of the list that was freed.
+ * This function can free lists with a loop.
+ * You should go through the list only once.
+ * The function sets the head to NULL.
  *
- * Description: The function sets the head to NULL.
+ * Return: the size of the list that was free’d. Otherwise 0.
  */
+
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *tmp;
-	size_t nodes, index;
+	listint_t *current;
+	listnode_t *nodes = NULL; /* stores address of nodes */
+	size_t count = 0;
 
-	nodes = looped_listint_count(*h);
+	if (h == NULL)
+		return (0);
 
-	if (nodes == 0)
+	/* while you have not encountered a loop */
+	while (!is_in_nodes(nodes, *h))
 	{
-		for (; h != NULL && *h != NULL; nodes++)
+		/* check if the malloc fails then exit */
+		if (!add_nodeptr(&nodes, *h))
 		{
-			tmp = (*h)->next;
-			free(*h);
-			*h = tmp;
+			free_listnode(nodes);
+			exit(98);
 		}
+		current = *h;
+		*h = (*h)->next;
+		free(current);
+		/* print address of current node and the value of field n */
+		/* cast it a void pointer in order to print the address */
+		/* printf("[%p] %d\n", (void *)head, head->n); */
+		/* count the nodes */
+		count++;
 	}
-
-	else
-	{
-		for (index = 0; index < nodes; index++)
-		{
-			tmp = (*h)->next;
-			free(*h);
-			*h = tmp;
-		}
-
+	/* if you encounter a loop */
+	if (*h != NULL)
 		*h = NULL;
-	}
 
-	h = NULL;
-
-	return (nodes);
+	/* print where the loop starts */
+	/*	printf("-> [%p] %d\n", (void *)head, head->n); */
+	free_listnode(nodes);
+	/* return number of nodes */
+	return (count);
 }
