@@ -1,29 +1,26 @@
-#include "main.h"
-
+#include <stdio.h>
+#include "holberton.h"
+#include <math.h>
 /**
- * print_binary - Prints binary
- *
- * @n: Unsigned int
- *
- * Return: Converted number
+ * print_binary - Function that prints the binary representation of a number.
+ * Prototype: void print_binary(unsigned long int n);
+ * @n: number to convert to binary
+ * You are not allowed to use arrays
+ * You are not allowed to use malloc
+ * You are not allowed to use the % or / operators
  */
-
 void print_binary(unsigned long int n)
 {
-
-	if (n > 1)
+	if (n == 0)
 	{
+		putchar('0');
+		return;
+	}
+	else if (n == 1)
+	{
+		putchar ('1');
+		return;
+	}
 	print_binary(n >> 1);
-	}
-
-	if (n & 1)
-	{
-		_putchar('1');
-	}
-	else
-	{
-		_putchar('0');
-	}
-
-
+	putchar('0' + (n & 1));
 }
